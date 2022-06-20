@@ -1,0 +1,32 @@
+application:
+  userRepo:
+    type: "InMemory"
+server:
+  port: 2345
+
+eureka:
+  client:
+    region: region-1
+    service-url:
+      zone1: http://localhost:8765/eureka/
+    availability-zones:
+      region-1: zone1
+spring:
+  application:
+    name: users-service
+
+com:
+  user:
+    exception:
+      exception-messages:
+        UserNotFoundException:
+          code: 1001
+          statusCode: 404
+          messageKey:
+            AR: "???????? ??? ?????"
+            EN: User Not Found
+
+
+
+
+
