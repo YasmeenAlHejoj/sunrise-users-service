@@ -9,7 +9,7 @@
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.yasmeenhj.poc</groupId>
-    <artifactId>users-service</artifactId>
+    <artifactId>sunrise-users-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>users-service</name>
     <description>POC in SpringBoot</description>
@@ -40,6 +40,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
+        <!--Dependency To Enable HATEOAS -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+            <version>2.7.0</version>
         </dependency>
 
 

@@ -3,20 +3,15 @@ package com.yasmeenhj.poc.usersservice.users.controllers;
 import com.yasmeenhj.poc.usersservice.users.model.dto.CreateUserDto;
 import com.yasmeenhj.poc.usersservice.users.model.dto.LoginDto;
 import com.yasmeenhj.poc.usersservice.users.model.dto.UpdateUserDto;
-import com.yasmeenhj.poc.usersservice.users.model.dto.UserDto;
 import com.yasmeenhj.poc.usersservice.users.model.entity.User;
 import com.yasmeenhj.poc.usersservice.users.services.UserService;
-import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
 
-import javax.ws.rs.HeaderParam;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.function.Function;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("user.api")
@@ -28,8 +23,16 @@ public class UserController {
     }
 
     @PostMapping
-    public User create(@RequestBody CreateUserDto user) {
-        return userService.create(user);
+    public EntityModel<User> create(@RequestBody CreateUserDto user) {
+        User createdUser = userService.create(user);
+        EntityModel<User> entityModel = EntityModel.of(createdUser)
+            .add(
+                linkTo(
+                    methodOn(
+                        UserController.class).getById(createdUser.getId()))
+                    .withRel("view")
+                 );
+        return entityModel;
     }
 
     @GetMapping
